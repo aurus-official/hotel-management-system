@@ -8,8 +8,10 @@ import hotel.management.system.utils.room_utils.RoomHours;
 
 public class Guest {
     private List<String> guestList = new ArrayList<>();
-    private ZonedDateTime checkInDateTime;
-    private ZonedDateTime checkOutDateTime;
+    private ZonedDateTime checkedInDateTime;
+
+    private ZonedDateTime checkedOutDateTime;
+
     private RoomHours lengthOfStay;
 
     public void addGuest(String guest) {
@@ -27,44 +29,28 @@ public class Guest {
         return guestList;
     }
 
-    public void setCheckInDateTime() {
-        this.checkInDateTime = ZonedDateTime.now();
-    }
-
-    public ZonedDateTime getCheckedInDateTime() {
-        return checkInDateTime;
-    }
-
-    public void setCheckOutDateTime() {
-        this.checkOutDateTime = ZonedDateTime.now();
-    }
-
-    public ZonedDateTime getCheckedOutDateTime() {
-        return checkOutDateTime;
-    }
-
     public void setGuestList(List<String> guestList) {
         this.guestList = guestList;
     }
 
-    public ZonedDateTime getCheckInDateTime() {
-        return checkInDateTime;
+    public ZonedDateTime getCheckedInDateTime() {
+        return checkedInDateTime;
     }
 
-    public void setCheckInDateTime(ZonedDateTime checkInDateTime) {
-        this.checkInDateTime = checkInDateTime;
-    }
-
-    public ZonedDateTime getCheckOutDateTime() {
-        return checkOutDateTime;
-    }
-
-    public void setCheckOutDateTime(ZonedDateTime checkOutDateTime) {
-        this.checkOutDateTime = checkOutDateTime;
+    public void setCheckedInDateTime(ZonedDateTime checkedInDateTime) {
+        this.checkedInDateTime = checkedInDateTime;
     }
 
     public RoomHours getLengthOfStay() {
         return lengthOfStay;
+    }
+
+    public ZonedDateTime getCheckedOutDateTime() {
+        return checkedOutDateTime;
+    }
+
+    public void setCheckedOutDateTime(ZonedDateTime checkedOutDateTime) {
+        this.checkedOutDateTime = checkedOutDateTime;
     }
 
     public void setLengthOfStay(RoomHours lengthOfStay) {

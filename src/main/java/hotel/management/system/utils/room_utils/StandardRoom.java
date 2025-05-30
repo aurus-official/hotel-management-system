@@ -4,11 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 class StandardRoom extends Room {
-    public static Map<RoomHours, Integer> getRates() {
-        Map<RoomHours, Integer> rates = new HashMap<>();
-        rates.put(RoomHours.HOURS_6, 900);
-        rates.put(RoomHours.HOURS_12, 1500);
-        rates.put(RoomHours.HOURS_24, 2500);
-        return rates;
+    private static Map<RoomHours, Integer> standardRoomRates;
+
+    @Override
+    public Map<RoomHours, Integer> getRates() {
+        if (standardRoomRates == null) {
+            standardRoomRates = new HashMap<>();
+            standardRoomRates.put(RoomHours.HOURS_6, 900);
+            standardRoomRates.put(RoomHours.HOURS_12, 1500);
+            standardRoomRates.put(RoomHours.HOURS_24, 2500);
+        }
+        return standardRoomRates;
     }
 }
