@@ -1,6 +1,6 @@
 package hotel.management.system.utils.room_utils;
 
-enum RoomStatus {
+public enum RoomStatus {
     AVAILABLE,
     OCCUPIED,
     RESERVED
