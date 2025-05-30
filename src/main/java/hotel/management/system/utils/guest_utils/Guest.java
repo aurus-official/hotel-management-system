@@ -4,13 +4,18 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import hotel.management.system.utils.room_utils.RoomHours;
+
 public class Guest {
     private List<String> guestList = new ArrayList<>();
     private ZonedDateTime checkInDateTime;
     private ZonedDateTime checkOutDateTime;
-    private int lengthOfStay = 0;
+    private RoomHours lengthOfStay;
 
     public void addGuest(String guest) {
+        if (guestList.size() > 2) {
+            throw new IllegalArgumentException("Guests number have exceeded");
+        }
         guestList.add(guest);
     }
 
@@ -38,11 +43,32 @@ public class Guest {
         return checkOutDateTime;
     }
 
-    public int getLengthOfStay() {
+    public void setGuestList(List<String> guestList) {
+        this.guestList = guestList;
+    }
+
+    public ZonedDateTime getCheckInDateTime() {
+        return checkInDateTime;
+    }
+
+    public void setCheckInDateTime(ZonedDateTime checkInDateTime) {
+        this.checkInDateTime = checkInDateTime;
+    }
+
+    public ZonedDateTime getCheckOutDateTime() {
+        return checkOutDateTime;
+    }
+
+    public void setCheckOutDateTime(ZonedDateTime checkOutDateTime) {
+        this.checkOutDateTime = checkOutDateTime;
+    }
+
+    public RoomHours getLengthOfStay() {
         return lengthOfStay;
     }
 
-    public void setLengthOfStay(int lengthOfStay) {
+    public void setLengthOfStay(RoomHours lengthOfStay) {
         this.lengthOfStay = lengthOfStay;
     }
+
 }

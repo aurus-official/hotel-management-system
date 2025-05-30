@@ -3,6 +3,7 @@ package hotel.management.system;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFrame;
 
@@ -61,11 +62,12 @@ public class HotelManagementSystem {
 
     private static void setupDBConnection() {
         try {
-            String username = "username-here";
-            String password = "password-here";
+            String username = "russel";
+            String password = "r.q062304";
             Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/hms", username,
                     password);
             System.out.println("DB accessed!");
+            Statement statement = connection.createStatement();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
