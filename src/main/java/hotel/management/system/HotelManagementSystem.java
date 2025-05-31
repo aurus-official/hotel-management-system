@@ -10,6 +10,7 @@ import hotel.management.system.ui.LoadingPanel;
 import hotel.management.system.ui.MainPanel;
 import hotel.management.system.utils.billing_utils.Transaction;
 import hotel.management.system.utils.db_utils.DatabaseManager;
+import hotel.management.system.utils.room_utils.RoomType;
 
 /**
  *
@@ -21,16 +22,18 @@ public class HotelManagementSystem {
     private static DatabaseManager databaseManager;
 
     public static void main(String[] args) throws InterruptedException {
+        HotelManagementSystem.registerDriver();
+        HotelManagementSystem.setupDBConnection();
+
         Transaction transaction = new Transaction();
         transaction.setRoomId(10);
         transaction.setGuestNames("Russel, Cassandra");
         transaction.setTotalPayment(3000.00f);
         transaction.setCheckedInTime(ZonedDateTime.now(ZoneId.of("Z")));
         transaction.setCheckedOutTime(ZonedDateTime.now(ZoneId.of("Z")));
+        transaction.setRoomType(RoomType.VIPRoom);
         databaseManager.storeTransaction(transaction);
 
-        HotelManagementSystem.registerDriver();
-        HotelManagementSystem.setupDBConnection();
         CustomFont.setup();
         HotelManagementSystem.setupMainFrame();
         HotelManagementSystem.startLoadingPanel();

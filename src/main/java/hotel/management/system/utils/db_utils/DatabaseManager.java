@@ -39,8 +39,9 @@ public class DatabaseManager {
 
     public void storeTransaction(Transaction transaction) {
         String query = String.format(
-                "INSERT INTO transaction (room_id, guest_list, total_balance, checked_in, checked_out) VALUES (%d, '%s', %f, '%s', '%s')",
-                transaction.getRoomId(), transaction.getGuestNames(), transaction.getTotalPayment(),
+                "INSERT INTO transaction (room_id, room_type, guest_list, total_balance, checked_in, checked_out) VALUES (%d, %d, '%s', %f, '%s', '%s')",
+                transaction.getRoomId(), transaction.getRoomType().ordinal(), transaction.getGuestNames(),
+                transaction.getTotalPayment(),
                 transaction.getCheckedInTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 transaction.getCheckedOutTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 

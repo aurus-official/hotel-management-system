@@ -1,8 +1,8 @@
 package hotel.management.system.utils.billing_utils;
 
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+
+import hotel.management.system.utils.room_utils.RoomType;
 
 public class Transaction {
     private int roomId;
@@ -10,6 +10,7 @@ public class Transaction {
     private String guestNames;
     private ZonedDateTime checkedInTime;
     private ZonedDateTime checkedOutTime;
+    private RoomType roomType;
 
     public int getRoomId() {
         return roomId;
@@ -51,9 +52,11 @@ public class Transaction {
         this.checkedOutTime = checkedOutTime;
     }
 
-    public static void zonedDateTimeParse(ZonedDateTime zonedDateTime) {
-        ZonedDateTime zonedDateTime2 = ZonedDateTime.now(ZoneId.of("Z"));
-        System.out.println(zonedDateTime2.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        System.out.println(zonedDateTime2);
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 }

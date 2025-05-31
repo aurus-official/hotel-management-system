@@ -20,11 +20,12 @@ public class BillingManager {
     public Transaction createTransaction(Room room) {
         Transaction transaction = new Transaction();
         transaction.setGuestNames(room.getGuest().getGuestList().stream().collect(Collectors.joining(", ")));
-
         transaction.setRoomId(room.getRoomId());
         transaction.setCheckedInTime(room.getGuest().getCheckedInDateTime());
         transaction.setCheckedOutTime(room.getGuest().getCheckedOutDateTime());
         transaction.setTotalPayment(room.getRates().get(room.getGuest().getLengthOfStay()));
+        transaction.setRoomType(room.getRoomType());
+
         return transaction;
     }
 

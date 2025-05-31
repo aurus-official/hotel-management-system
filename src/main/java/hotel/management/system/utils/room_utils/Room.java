@@ -8,6 +8,15 @@ public abstract class Room {
     private RoomStatus roomStatus = RoomStatus.AVAILABLE;
     private Guest guest = null;
     private int roomId;
+    private RoomType roomType;
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
 
     public abstract Map<RoomHours, Integer> getRates();
 

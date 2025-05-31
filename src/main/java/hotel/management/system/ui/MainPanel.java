@@ -192,10 +192,106 @@ public class MainPanel {
             parentFrame.setVisible(false);
         });
 
+        JButton addButton = new JButton(
+                new ImageIcon("./src/main/java/hotel/management/system/assets/addIcon.png"));
+        addButton.setPreferredSize(new Dimension(50, 30));
+        addButton.setMaximumSize(addButton.getPreferredSize());
+        addButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black));
+        addButton.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+        addButton.setBackground(Color.white);
+        addButton.setToolTipText(" Check in room guest ");
+        addButton.addActionListener((ActionEvent e) -> {
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
+            addButton.setEnabled(false);
+
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Room Status Filter");
+            dialog.setPreferredSize(new Dimension(450, 320));
+            dialog.setMaximumSize(dialog.getPreferredSize());
+            dialog.setVisible(true);
+            dialog.getContentPane().setBackground(new Color(24, 25, 27));
+            dialog.setResizable(false);
+            dialog.setLayout(new FlowLayout());
+
+            JLabel addTitle = new JLabel(
+                    "<html><center style='margin-top:30'>Check In Details</center></html>",
+                    SwingConstants.CENTER);
+            addTitle.setPreferredSize(new Dimension(450, 65));
+            addTitle.setFont(new Font("Inria Serif", Font.PLAIN, 25));
+            addTitle.setForeground(Color.white);
+            addTitle.setMaximumSize(addTitle.getPreferredSize());
+
+            JPanel guestNamesFieldContainer = new JPanel();
+            guestNamesFieldContainer.setPreferredSize(new Dimension(450, 70));
+            guestNamesFieldContainer.setMaximumSize(guestNamesFieldContainer.getPreferredSize());
+            guestNamesFieldContainer.setBackground(new Color(25, 25, 27));
+            guestNamesFieldContainer.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
+
+            JLabel guestNamesLabel = new JLabel("Guest Names :");
+            guestNamesLabel.setPreferredSize(new Dimension(100, 30));
+            guestNamesLabel.setMaximumSize(guestNamesLabel.getPreferredSize());
+            guestNamesLabel.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+            guestNamesLabel.setForeground(Color.white);
+
+            JTextField guestNamesField = new JTextField("");
+            guestNamesField.setPreferredSize(new Dimension(300, 30));
+            guestNamesField.setMaximumSize(guestNamesField.getPreferredSize());
+            guestNamesField.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+            guestNamesField.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+            guestNamesField.setToolTipText(" Enter guest names (separated with comma)");
+
+            guestNamesFieldContainer.add(guestNamesLabel);
+            guestNamesFieldContainer.add(guestNamesField);
+
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setPreferredSize(new Dimension(700, 50));
+            buttonPanel.setMaximumSize(buttonPanel.getPreferredSize());
+            buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+            buttonPanel.setBackground(new Color(25, 25, 27));
+
+            JButton checkInGuest = new JButton("Check In");
+            checkInGuest.setPreferredSize(new Dimension(100, 30));
+            checkInGuest.setMaximumSize(checkInGuest.getPreferredSize());
+            checkInGuest.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+            checkInGuest.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black));
+            checkInGuest.setBackground(Color.white);
+            checkInGuest.setToolTipText(" Check In ");
+            checkInGuest.addActionListener((ActionEvent x) -> {
+
+                dialog.dispose();
+                parentFrame.setVisible(true);
+                addButton.setEnabled(true);
+            });
+
+            JButton cancelCheckIn = new JButton("Cancel");
+            cancelCheckIn.setPreferredSize(new Dimension(100, 30));
+            cancelCheckIn.setMaximumSize(cancelCheckIn.getPreferredSize());
+            cancelCheckIn.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+            cancelCheckIn.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black));
+            cancelCheckIn.setBackground(Color.white);
+            cancelCheckIn.setToolTipText(" Cancel ");
+            cancelCheckIn.addActionListener((ActionEvent x) -> {
+                dialog.dispose();
+                parentFrame.setVisible(true);
+                addButton.setEnabled(true);
+            });
+
+            buttonPanel.add(checkInGuest);
+            buttonPanel.add(cancelCheckIn);
+
+            dialog.getContentPane().add(addTitle);
+            dialog.getContentPane().add(guestNamesFieldContainer);
+            dialog.getContentPane().add(buttonPanel);
+            dialog.pack();
+
+            parentFrame.setVisible(false);
+        });
+
         panel.add(logo);
         panel.add(searchBar);
         panel.add(searchButton);
         panel.add(filterMenuButton);
+        panel.add(addButton);
         mainPanel.add(panel);
     }
 

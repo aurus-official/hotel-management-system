@@ -87,3 +87,4 @@ nb-configuration.xml
 ## Miscellaneous
 ##############################
 *.log
+./src/main/java/hotel/management/system/assets/login-creds.txt
