@@ -1,15 +1,15 @@
 package hotel.management.system;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import javax.swing.JFrame;
 
 import hotel.management.system.ui.CustomFont;
 import hotel.management.system.ui.LoadingPanel;
 import hotel.management.system.ui.MainPanel;
+import hotel.management.system.utils.billing_utils.Transaction;
+import hotel.management.system.utils.db_utils.DatabaseManager;
 
 /**
  *
@@ -18,8 +18,17 @@ import hotel.management.system.ui.MainPanel;
 
 public class HotelManagementSystem {
     private static JFrame mainFrame;
+    private static DatabaseManager databaseManager;
 
     public static void main(String[] args) throws InterruptedException {
+        Transaction transaction = new Transaction();
+        transaction.setRoomId(10);
+        transaction.setGuestNames("Russel, Cassandra");
+        transaction.setTotalPayment(3000.00f);
+        transaction.setCheckedInTime(ZonedDateTime.now(ZoneId.of("Z")));
+        transaction.setCheckedOutTime(ZonedDateTime.now(ZoneId.of("Z")));
+        databaseManager.storeTransaction(transaction);
+
         HotelManagementSystem.registerDriver();
         HotelManagementSystem.setupDBConnection();
         CustomFont.setup();
@@ -61,16 +70,6 @@ public class HotelManagementSystem {
     }
 
     private static void setupDBConnection() {
-        try {
-            String username = "russel";
-            String password = "r.q062304";
-            Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/hms", username,
-                    password);
-            System.out.println("DB accessed!");
-            Statement statement = connection.createStatement();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        databaseManager = DatabaseManager.getDatabaseManagerInstance();
     }
 }

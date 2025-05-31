@@ -17,12 +17,18 @@ public class BillingManager {
         return billingManager;
     }
 
-    public static void createTransaction(Room room) {
+    public Transaction createTransaction(Room room) {
         Transaction transaction = new Transaction();
         transaction.setGuestNames(room.getGuest().getGuestList().stream().collect(Collectors.joining(", ")));
+
         transaction.setRoomId(room.getRoomId());
         transaction.setCheckedInTime(room.getGuest().getCheckedInDateTime());
         transaction.setCheckedOutTime(room.getGuest().getCheckedOutDateTime());
         transaction.setTotalPayment(room.getRates().get(room.getGuest().getLengthOfStay()));
+        return transaction;
+    }
+
+    public void payTransaction(Transaction transaction) {
+
     }
 }
