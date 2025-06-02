@@ -19,7 +19,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -76,11 +78,6 @@ public class MainPanel {
         searchBar.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
         searchBar.setToolTipText(" Enter a room id ");
 
-        Box box = Box.createVerticalBox();
-        box.add(Box.createVerticalGlue());
-        box.add(searchBar);
-        box.add(Box.createVerticalGlue());
-
         JButton searchButton = new JButton(
                 new ImageIcon("./src/main/java/hotel/management/system/assets/searchIcon2.png"));
         searchButton.setPreferredSize(new Dimension(50, 30));
@@ -89,6 +86,62 @@ public class MainPanel {
         searchButton.setFont(new Font("Inria Serif", Font.PLAIN, 14));
         searchButton.setBackground(Color.white);
         searchButton.setToolTipText(" Search for room id ");
+        searchButton.addActionListener((ActionEvent e) -> {
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
+            searchButton.setEnabled(false);
+
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Room Status Filter");
+            dialog.setPreferredSize(new Dimension(600, 510));
+            dialog.setMaximumSize(dialog.getPreferredSize());
+            dialog.setVisible(true);
+            dialog.getContentPane().setBackground(new Color(24, 25, 27));
+            dialog.setResizable(false);
+            dialog.setLayout(new FlowLayout());
+
+            JLabel roomListTitle = new JLabel(
+                    "<html><center style='margin-top:30'>Room List</center></html>",
+                    SwingConstants.CENTER);
+            roomListTitle.setPreferredSize(new Dimension(600, 90));
+            roomListTitle.setFont(new Font("Inria Serif", Font.PLAIN, 25));
+            roomListTitle.setForeground(Color.white);
+            roomListTitle.setMaximumSize(roomListTitle.getPreferredSize());
+
+            JPanel roomsPanel = new JPanel();
+            roomsPanel.setPreferredSize(new Dimension(600, 550));
+            roomsPanel.setMaximumSize(roomsPanel.getPreferredSize());
+            roomsPanel.setBackground(new Color(25, 25, 27));
+
+            JScrollPane wholePane = new JScrollPane(roomsPanel);
+            wholePane.setPreferredSize(new Dimension(500, 310));
+            wholePane.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+            wholePane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+            JButton closeButton = new JButton("Cancel");
+            closeButton.setPreferredSize(new Dimension(100, 30));
+            closeButton.setMaximumSize(closeButton.getPreferredSize());
+            closeButton.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+            closeButton.setBackground(Color.white);
+            closeButton.setToolTipText(" Close ");
+            closeButton.addActionListener((ActionEvent x) -> {
+                dialog.dispose();
+                parentFrame.setVisible(true);
+                searchButton.setEnabled(true);
+            });
+
+            Box box = Box.createVerticalBox();
+            box.add(Box.createRigidArea(new Dimension(0, 15)));
+            box.add(closeButton);
+            box.add(Box.createRigidArea(new Dimension(0, 15)));
+
+            dialog.getContentPane().add(roomListTitle);
+            dialog.getContentPane().add(wholePane);
+            dialog.getContentPane().add(box);
+            dialog.pack();
+
+            parentFrame.setVisible(false);
+
+        });
 
         JButton filterMenuButton = new JButton(
                 new ImageIcon("./src/main/java/hotel/management/system/assets/filterIcon.png"));
@@ -144,7 +197,7 @@ public class MainPanel {
             reservedCheckBox.setMaximumSize(reservedCheckBox.getPreferredSize());
 
             JPanel buttonPanel = new JPanel();
-            buttonPanel.setPreferredSize(new Dimension(700, 50));
+            buttonPanel.setPreferredSize(new Dimension(350, 50));
             buttonPanel.setMaximumSize(buttonPanel.getPreferredSize());
             buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
             buttonPanel.setBackground(new Color(25, 25, 27));
@@ -244,7 +297,7 @@ public class MainPanel {
             guestNamesFieldContainer.add(guestNamesField);
 
             JPanel buttonPanel = new JPanel();
-            buttonPanel.setPreferredSize(new Dimension(700, 50));
+            buttonPanel.setPreferredSize(new Dimension(450, 50));
             buttonPanel.setMaximumSize(buttonPanel.getPreferredSize());
             buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
             buttonPanel.setBackground(new Color(25, 25, 27));
