@@ -10,6 +10,7 @@ import hotel.management.system.ui.LoadingPanel;
 import hotel.management.system.ui.MainPanel;
 import hotel.management.system.utils.billing_utils.Transaction;
 import hotel.management.system.utils.db_utils.DatabaseManager;
+import hotel.management.system.utils.room_utils.RoomManager;
 import hotel.management.system.utils.room_utils.RoomType;
 
 /**
@@ -20,10 +21,12 @@ import hotel.management.system.utils.room_utils.RoomType;
 public class HotelManagementSystem {
     private static JFrame mainFrame;
     private static DatabaseManager databaseManager;
+    private static RoomManager roomManager;
 
     public static void main(String[] args) throws InterruptedException {
         HotelManagementSystem.registerDriver();
         HotelManagementSystem.setupDBConnection();
+        HotelManagementSystem.setupRoomManager();
 
         Transaction transaction = new Transaction();
         transaction.setRoomId(10);
@@ -74,5 +77,9 @@ public class HotelManagementSystem {
 
     private static void setupDBConnection() {
         databaseManager = DatabaseManager.getDatabaseManagerInstance();
+    }
+
+    private static void setupRoomManager() {
+        roomManager = RoomManager.getRoomManagerInstance();
     }
 }

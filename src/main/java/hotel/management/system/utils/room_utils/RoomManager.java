@@ -2,6 +2,8 @@ package hotel.management.system.utils.room_utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class RoomManager {
     private static RoomManager roomManager;
@@ -37,9 +39,13 @@ public class RoomManager {
         }
         for (int i = 0; i < MAX_VIP_ROOM; ++i) {
             VIPRoom vipRoom = new VIPRoom();
-            vipRoom.setRoomId(MAX_DELUXE_ROOM + i + 1);
+            vipRoom.setRoomId(MAX_STANDARD_ROOM + MAX_DELUXE_ROOM + i + 1);
             vipRoom.setRoomType(RoomType.VIPRoom);
             allRooms.add(vipRoom);
         }
+    }
+
+    public List<Room> filter(Map<RoomStatus, Boolean> filterSettings) {
+        return allRooms.stream().filter(room -> filterSettings.get(room.getRoomStatus())).collect(Collectors.toList());
     }
 }
