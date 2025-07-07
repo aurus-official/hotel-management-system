@@ -14,7 +14,7 @@ public abstract class Room {
         return roomType;
     }
 
-    public void setRoomType(RoomType roomType) {
+    protected void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 
@@ -24,7 +24,7 @@ public abstract class Room {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    protected void setRoomId(int roomId) {
         this.roomId = roomId;
     }
 
