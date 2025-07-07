@@ -10,6 +10,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import hotel.management.system.utils.guest_utils.Guest;
+import hotel.management.system.utils.room_utils.Room;
 import hotel.management.system.utils.room_utils.RoomHours;
 import hotel.management.system.utils.room_utils.RoomManager;
 import hotel.management.system.utils.room_utils.RoomStatus;
@@ -137,14 +139,16 @@ public class MainPanel {
             flowLayout.setVgap(20);
             roomsPanel.setLayout(flowLayout);
 
-            if (filterSettings.get(RoomStatus.OCCUPIED)) {
-                allRooms.filter(filterSettings).stream().forEach(room -> {
+            List<Room> filteredRooms = allRooms.filter(filterSettings);
+
+            if (filterSettings.get(RoomStatus.AVAILABLE)) {
+                filteredRooms.stream().forEach(room -> {
                     JButton roomButton = new JButton(String.format("Room No. %d", room.getRoomId()));
                     roomButton.setPreferredSize(new Dimension(150, 30));
                     roomButton.setMaximumSize(roomButton.getPreferredSize());
                     roomButton.setFont(new Font("Inria Serif", Font.PLAIN, 14));
                     roomButton.setBackground(Color.white);
-                    roomButton.setToolTipText(" Close ");
+                    roomButton.setToolTipText(String.format("Room %d", room.getRoomId()));
                     roomButton.addActionListener((ActionEvent z) -> {
                         roomButton.setEnabled(false);
                         dialog.setVisible(false);
@@ -226,6 +230,7 @@ public class MainPanel {
 
                         TimePicker selectCheckInTime = new TimePicker();
                         selectCheckInTime.setEditor(selectCheckInTimeField);
+                        selectCheckInTime.set24HourView(true);
 
                         selectCheckInTimeContainer.add(selectCheckInTimeLabel);
                         selectCheckInTimeContainer.add(selectCheckInTimeField);
@@ -312,6 +317,82 @@ public class MainPanel {
                         addDialog.pack();
                     });
 
+                    roomsPanel.add(roomButton);
+                });
+            }
+
+            if (filterSettings.get(RoomStatus.OCCUPIED)) {
+                filteredRooms.stream().forEach(room -> {
+                    JButton roomButton = new JButton(String.format("Room No. %d", room.getRoomId()));
+                    roomButton.setPreferredSize(new Dimension(150, 30));
+                    roomButton.setMaximumSize(roomButton.getPreferredSize());
+                    roomButton.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+                    roomButton.setBackground(Color.white);
+                    roomButton.setToolTipText(String.format("Room %d", room.getRoomId()));
+                    roomButton.addActionListener((ActionEvent a) -> {
+                        roomButton.setEnabled(false);
+                        dialog.setVisible(false);
+                        JDialog checkRoomDialog = new JDialog();
+                        checkRoomDialog.setTitle("checkRoom User Information");
+                        checkRoomDialog.setPreferredSize(new Dimension(450, 360));
+                        checkRoomDialog.setMaximumSize(checkRoomDialog.getPreferredSize());
+                        checkRoomDialog.setVisible(true);
+                        checkRoomDialog.getContentPane().setBackground(new Color(24, 25, 27));
+                        checkRoomDialog.setResizable(false);
+                        FlowLayout checkRoomDialogLayout = new FlowLayout();
+                        flowLayout.setHgap(5);
+                        flowLayout.setVgap(30);
+                        checkRoomDialog.setLayout(checkRoomDialogLayout);
+
+                        JLabel checkRoomTitle = new JLabel(String.format(
+                                "<html><center style='margin-top:30'>Room No. %d</center></html>",
+                                room.getRoomId()),
+                                SwingConstants.CENTER);
+                        checkRoomTitle.setPreferredSize(new Dimension(450, 90));
+                        checkRoomTitle.setFont(new Font("Inria Serif", Font.PLAIN, 25));
+                        checkRoomTitle.setForeground(Color.white);
+
+                        JPanel buttonPanel = new JPanel();
+                        buttonPanel.setPreferredSize(new Dimension(450, 50));
+                        buttonPanel.setMaximumSize(buttonPanel.getPreferredSize());
+                        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+                        buttonPanel.setBackground(new Color(25, 25, 27));
+
+                        JButton checkOutGuest = new JButton("Check Out");
+                        checkOutGuest.setPreferredSize(new Dimension(100, 30));
+                        checkOutGuest.setMaximumSize(checkOutGuest.getPreferredSize());
+                        checkOutGuest.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+                        checkOutGuest.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1,
+                                Color.black));
+                        checkOutGuest.setBackground(Color.white);
+                        checkOutGuest.setToolTipText(" Check Out ");
+                        checkOutGuest.addActionListener((ActionEvent x) -> {
+                            checkRoomDialog.dispose();
+                            dialog.setVisible(true);
+                            roomButton.setEnabled(true);
+                        });
+
+                        JButton cancelCheckOut = new JButton("Cancel");
+                        cancelCheckOut.setPreferredSize(new Dimension(100, 30));
+                        cancelCheckOut.setMaximumSize(cancelCheckOut.getPreferredSize());
+                        cancelCheckOut.setFont(new Font("Inria Serif", Font.PLAIN, 14));
+                        cancelCheckOut.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1,
+                                Color.black));
+                        cancelCheckOut.setBackground(Color.white);
+                        cancelCheckOut.setToolTipText(" Cancel ");
+                        cancelCheckOut.addActionListener((ActionEvent x) -> {
+                            checkRoomDialog.dispose();
+                            dialog.setVisible(true);
+                            roomButton.setEnabled(true);
+                        });
+
+                        buttonPanel.add(checkOutGuest);
+                        buttonPanel.add(cancelCheckOut);
+
+                        checkRoomDialog.getContentPane().add(checkRoomTitle);
+                        checkRoomDialog.getContentPane().add(buttonPanel);
+                        checkRoomDialog.pack();
+                    });
                     roomsPanel.add(roomButton);
                 });
             }
