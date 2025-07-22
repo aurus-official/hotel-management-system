@@ -33,6 +33,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import hotel.management.system.utils.billing_utils.BillingManager;
+import hotel.management.system.utils.billing_utils.Transaction;
+import hotel.management.system.utils.db_utils.DatabaseManager;
 import hotel.management.system.utils.guest_utils.Guest;
 import hotel.management.system.utils.room_utils.Room;
 import hotel.management.system.utils.room_utils.RoomHours;
@@ -283,8 +286,13 @@ public class MainPanel {
                             guest.setCheckedOutDateTime(zonedDateTime
                                     .plusHours(
                                             Long.valueOf(((RoomHours) lengthOfStayBox.getSelectedItem()).toString())));
-
                             room.setGuest(guest);
+
+                            BillingManager billingManager = BillingManager.getBillingManagerInstance();
+                            Transaction transaction = billingManager.createTransaction(room);
+
+                            DatabaseManager databaseManager = DatabaseManager.getDatabaseManagerInstance();
+                            databaseManager.storeTransaction(transaction);
 
                             dialog.dispose();
                             parentFrame.setVisible(true);

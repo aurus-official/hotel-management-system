@@ -1,17 +1,12 @@
 package hotel.management.system;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
 import javax.swing.JFrame;
 
 import hotel.management.system.ui.CustomFont;
 import hotel.management.system.ui.LoadingPanel;
 import hotel.management.system.ui.MainPanel;
-import hotel.management.system.utils.billing_utils.Transaction;
 import hotel.management.system.utils.db_utils.DatabaseManager;
 import hotel.management.system.utils.room_utils.RoomManager;
-import hotel.management.system.utils.room_utils.RoomType;
 
 /**
  *
@@ -27,15 +22,6 @@ public class HotelManagementSystem {
         HotelManagementSystem.registerDriver();
         HotelManagementSystem.setupDBConnection();
         HotelManagementSystem.setupRoomManager();
-
-        Transaction transaction = new Transaction();
-        transaction.setRoomId(10);
-        transaction.setGuestNames("Russel, Cassandra");
-        transaction.setTotalPayment(3000.00f);
-        transaction.setCheckedInTime(ZonedDateTime.now(ZoneId.of("Z")));
-        transaction.setCheckedOutTime(ZonedDateTime.now(ZoneId.of("Z")));
-        transaction.setRoomType(RoomType.VIPRoom);
-        databaseManager.storeTransaction(transaction);
 
         CustomFont.setup();
         HotelManagementSystem.setupMainFrame();
